@@ -1,0 +1,4 @@
+id,name,od,rd,as,af,preds
+U1-AB-FDN-3020,철근 배근(2구역),20,8,02-09,,
+U1-AB-FDN-3040,매입물(2구역),10,6,02-23,,U1-AB-FDN-3020:FS
+U1-AB-FDN-3060,타설(2구역),4,,,,U1-AB-FDN-3020:FS;U1-AB-FDN-3040:FS

@@ -23,3 +23,22 @@
   .header-link { font-size:10px; }
   .practice-actions .button { padding:10px 12px; }
 }
+
+/* v2: 정의 박스, 기출 카드, 토글, 진도 막대 */
+.term { margin:18px 0; padding:14px 16px; border-left:4px solid var(--green); background:var(--soft); border-radius:6px; }
+.term p { margin:6px 0 0; }
+.term-head { display:flex; flex-wrap:wrap; gap:6px 10px; align-items:baseline; }
+.term-en { font-style:italic; }
+.term-abbr, .term-slang { font-size:.8rem; padding:1px 8px; border:1px solid var(--green); border-radius:999px; }
+.term-ex { font-size:.92rem; opacity:.85; }
+.term-ex::before { content:"EN · "; font-weight:700; font-style:normal; }
+.chapter.exam { border-color:var(--green); }
+.chapter.exam .num { color:var(--green); font-weight:700; }
+.toggle { display:inline-flex; align-items:center; gap:8px; margin:6px 14px 6px 0; cursor:pointer; }
+.toggle input { accent-color:var(--green); width:18px; height:18px; }
+.progress-row { display:grid; grid-template-columns:minmax(0,1fr) 120px 48px; gap:10px; align-items:center; padding:6px 0; }
+.progress-row progress { width:100%; accent-color:var(--green); }
+.book-nav { display:flex; justify-content:space-between; gap:10px; margin:18px 0; }
+.card h2 { font-size:1.6rem; margin:14px 0; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --soft:#1d2f2a; } }
+:root[data-theme="dark"] { --soft:#1d2f2a; }

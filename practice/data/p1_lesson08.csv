@@ -1,0 +1,7 @@
+id,name,od,rd,as,af,preds
+U1-RB-FDN-1010,버림 콘크리트,3,,,,
+U1-RB-FDN-1020,하부 철근,10,,,,U1-RB-FDN-1010:FS+2
+U1-RB-FDN-1030,상부 철근,12,,,,U1-RB-FDN-1020:SS+5
+U1-RB-FDN-1040,매입물 설치,8,,,,U1-RB-FDN-1030:SS+4
+U1-RB-FDN-1050,타설 전 검측,2,,,,U1-RB-FDN-1040:FF+2
+U1-RB-FDN-1060,기초 매트 타설,3,,,,U1-RB-FDN-1050:FS

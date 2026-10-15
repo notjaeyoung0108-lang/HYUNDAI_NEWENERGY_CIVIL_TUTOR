@@ -21,6 +21,18 @@ window.renderMarkdown = (() => {
         if (i < lines.length) i++;
         out.push(`<details><summary>${inline(disclosure[1])}</summary><div class="details-body">${markdown(body.join('\n'))}</div></details>`); continue;
       }
+      // `::: term 한글 | English | 약어 | 현장말` … `:::` — a definition box (see authoring/OUTLINE.md).
+      const term = /^::: term (.+)$/.exec(line);
+      if (term) {
+        const [ko, en = '', abbr = '-', slang = '-'] = term[1].split('|').map(s => s.trim());
+        const body = []; i++;
+        while (i < lines.length && lines[i].trim() !== ':::') body.push(lines[i++]);
+        if (i < lines.length) i++;
+        const ex = body.find(l => l.startsWith('EN:'));
+        const def = body.filter(l => !l.startsWith('EN:')).join(' ').trim();
+        const tags = [abbr !== '-' && abbr ? `<span class="term-abbr">${esc(abbr)}</span>` : '', slang !== '-' && slang ? `<span class="term-slang">현장말 · ${esc(slang)}</span>` : ''].join('');
+        out.push(`<aside class="term" aria-label="용어 정의: ${esc(ko)}"><div class="term-head"><strong>${esc(ko)}</strong><span class="term-en">${esc(en)}</span>${tags}</div><p>${inline(def)}</p>${ex ? `<p class="term-ex" lang="en">${inline(ex.replace(/^EN:\s*/, ''))}</p>` : ''}</aside>`); continue;
+      }
       if (/^---+$/.test(line.trim())) { out.push('<hr>'); i++; continue; }
       const heading = /^(#{1,4})\s+(.+)/.exec(line);
       if (heading) { const n = heading[1].length; out.push(`<h${n}>${inline(heading[2])}</h${n}>`); i++; continue; }
@@ -42,7 +54,7 @@ window.renderMarkdown = (() => {
         out.push(`<div class="table-scroll" tabindex="0" role="region" aria-label="교재 표, 가로로 스크롤"><table><thead><tr>${head.map(x => `<th scope="col">${x}</th>`).join('')}</tr></thead><tbody>${rows.map(r => `<tr>${r.map(x => `<td>${x}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`); continue;
       }
       const p = [line]; i++;
-      while (i < lines.length && lines[i].trim() && !/^(#|>|[-*] |\d+\. |\||```)/.test(lines[i])) p.push(lines[i++]);
+      while (i < lines.length && lines[i].trim() && !/^(#|>|[-*] |\d+\. |\||```|:::|<details>)/.test(lines[i])) p.push(lines[i++]);
       out.push(`<p>${inline(p.join(' '))}</p>`);
     }
     return out.join('');
